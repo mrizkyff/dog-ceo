@@ -16,9 +16,12 @@ public interface BreedDataSource {
     String getBreed(String breed);
     String getSubBreed(String breed, String subBreed);
     String getRandomBreedImages(String breed);
-//    List<String> getBreedNRandomImages(String breed, int n);
-//    List<String> getBreedsImages(String breed);
-//    List<Breed> getBreedRandomImagesWithSub(String breed);
-//    List<Breed> getBreedNRandomImagesWithSub(String breed, int n);
+    List<String> getNRandomBreedImages(int n);
+    List<String> getBreedsImages(String breed);
+    String getBreedRandomImagesWithSub(String breed);
+    List<String> getBreedNRandomImagesWithSub(String breed, int n);
+    List<String> getSubBreedImages(String breed, String subBreed);
+    String getSubBreedRandomImagesWithSub(String breed, String subBreed);
+    List<String> getSubBreedNRandomImagesWithSub(String breed, String subBreed, int n);
 
 }

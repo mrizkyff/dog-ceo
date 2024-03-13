@@ -242,4 +242,95 @@ public class BreedDataSourceImpl implements BreedDataSource {
         return Objects.requireNonNull(response.getBody()).getMessage();
     }
 
+    @Override
+    public List<String> getNRandomBreedImages(int n) {
+        ResponseEntity<ClientSuccessResponseDto<List<String>>> response = restTemplate.exchange(
+                buildApiUrl("/breeds/image/random/" + n) ,
+                HttpMethod.GET ,
+                null ,
+                new ParameterizedTypeReference<>() {
+                }
+        );
+        handleErrorResponse(response, Objects.requireNonNull(response.getBody()).getStatus());
+        return Objects.requireNonNull(response.getBody()).getMessage();
+    }
+
+    @Override
+    public List<String> getBreedsImages(String breed) {
+        ResponseEntity<ClientSuccessResponseDto<List<String>>> response = restTemplate.exchange(
+                buildApiUrl("/breed/" + breed + "/images") ,
+                HttpMethod.GET ,
+                null ,
+                new ParameterizedTypeReference<>() {
+                }
+        );
+        handleErrorResponse(response, Objects.requireNonNull(response.getBody()).getStatus());
+        return Objects.requireNonNull(response.getBody()).getMessage();
+    }
+
+    @Override
+    public String getBreedRandomImagesWithSub(String breed) {
+        ResponseEntity<ClientSuccessResponseDto<String>> response = restTemplate.exchange(
+                buildApiUrl("/breed/" + breed + "/images/random") ,
+                HttpMethod.GET ,
+                null ,
+                new ParameterizedTypeReference<>() {
+                }
+        );
+        handleErrorResponse(response, Objects.requireNonNull(response.getBody()).getStatus());
+        return Objects.requireNonNull(response.getBody()).getMessage();
+    }
+
+    @Override
+    public List<String> getBreedNRandomImagesWithSub(String breed , int n) {
+        ResponseEntity<ClientSuccessResponseDto<List<String>>> response = restTemplate.exchange(
+                buildApiUrl("/breed/" + breed + "/images/random/" + n) ,
+                HttpMethod.GET ,
+                null ,
+                new ParameterizedTypeReference<>() {
+                }
+        );
+        handleErrorResponse(response, Objects.requireNonNull(response.getBody()).getStatus());
+        return Objects.requireNonNull(response.getBody()).getMessage();
+    }
+
+    @Override
+    public List<String> getSubBreedImages(String breed , String subBreed) {
+        ResponseEntity<ClientSuccessResponseDto<List<String>>> response = restTemplate.exchange(
+                buildApiUrl("/breed/" + breed + "/" + subBreed + "/images") ,
+                HttpMethod.GET ,
+                null ,
+                new ParameterizedTypeReference<>() {
+                }
+        );
+        handleErrorResponse(response, Objects.requireNonNull(response.getBody()).getStatus());
+        return Objects.requireNonNull(response.getBody()).getMessage();
+    }
+
+    @Override
+    public String getSubBreedRandomImagesWithSub(String breed , String subBreed) {
+        ResponseEntity<ClientSuccessResponseDto<String>> response = restTemplate.exchange(
+                buildApiUrl("/breed/" + breed + "/" + subBreed + "/images/random") ,
+                HttpMethod.GET ,
+                null ,
+                new ParameterizedTypeReference<>() {
+                }
+        );
+        handleErrorResponse(response, Objects.requireNonNull(response.getBody()).getStatus());
+        return Objects.requireNonNull(response.getBody()).getMessage();
+    }
+
+    @Override
+    public List<String> getSubBreedNRandomImagesWithSub(String breed , String subBreed , int n) {
+        ResponseEntity<ClientSuccessResponseDto<List<String>>> response = restTemplate.exchange(
+                buildApiUrl("/breed/" + breed + "/" + subBreed + "/images/random/" + n) ,
+                HttpMethod.GET ,
+                null ,
+                new ParameterizedTypeReference<>() {
+                }
+        );
+        handleErrorResponse(response, Objects.requireNonNull(response.getBody()).getStatus());
+        return Objects.requireNonNull(response.getBody()).getMessage();
+    }
+
 }

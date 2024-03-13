@@ -112,4 +112,53 @@ class BreedDataSourceImplTest {
         assertNotNull(breedRandomImages);
         log.info("Breed random images : {}", objectMapper.writeValueAsString(breedRandomImages));
     }
+
+    @Test
+    void getNRandomBreedImages() throws JsonProcessingException {
+        List<String> nRandomBreedImages = breedDataSource.getNRandomBreedImages(3);
+        assertNotNull(nRandomBreedImages);
+        log.info("3 Breed random images : {}", objectMapper.writeValueAsString(nRandomBreedImages));
+    }
+
+    @Test
+    void getBreedsImages() throws JsonProcessingException {
+        List<String> breedsImages = breedDataSource.getBreedsImages("bulldog");
+        assertNotNull(breedsImages);
+        log.info("Breed images : {}", objectMapper.writeValueAsString(breedsImages));
+    }
+
+    @Test
+    void getBreedRandomImagesWithSub() throws JsonProcessingException {
+        String breedRandomImagesWithSub = breedDataSource.getBreedRandomImagesWithSub("bulldog");
+        assertNotNull(breedRandomImagesWithSub);
+        log.info("Breed random images with sub : {}", objectMapper.writeValueAsString(breedRandomImagesWithSub));
+    }
+
+    @Test
+    void getBreedNRandomImagesWithSub() throws JsonProcessingException {
+        List<String> breedNRandomImagesWithSub = breedDataSource.getBreedNRandomImagesWithSub("bulldog", 3);
+        assertNotNull(breedNRandomImagesWithSub);
+        log.info("3 Breed random images with sub : {}", objectMapper.writeValueAsString(breedNRandomImagesWithSub));
+    }
+
+    @Test
+    void getSubBreedImages() throws JsonProcessingException {
+        List<String> subBreedImages = breedDataSource.getSubBreedImages("bulldog", "boston");
+        assertNotNull(subBreedImages);
+        log.info("Sub breed images : {}", objectMapper.writeValueAsString(subBreedImages));
+    }
+
+    @Test
+    void getSubBreedRandomImagesWithSub() throws JsonProcessingException {
+        String subBreedRandomImagesWithSub = breedDataSource.getSubBreedRandomImagesWithSub("bulldog", "boston");
+        assertNotNull(subBreedRandomImagesWithSub);
+        log.info("Sub breed random images with sub : {}", objectMapper.writeValueAsString(subBreedRandomImagesWithSub));
+    }
+
+    @Test
+    void getSubBreedNRandomImagesWithSub() throws JsonProcessingException {
+        List<String> subBreedNRandomImagesWithSub = breedDataSource.getSubBreedNRandomImagesWithSub("bulldog", "boston", 3);
+        assertNotNull(subBreedNRandomImagesWithSub);
+        log.info("3 Sub breed random images with sub : {}", objectMapper.writeValueAsString(subBreedNRandomImagesWithSub));
+    }
 }
