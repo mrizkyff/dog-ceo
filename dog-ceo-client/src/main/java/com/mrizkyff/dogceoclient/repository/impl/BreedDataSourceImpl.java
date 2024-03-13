@@ -42,9 +42,6 @@ public class BreedDataSourceImpl implements BreedDataSource {
         SCHEME = scheme;
     }
 
-    @Value("${dog.ceo.breed.client.timeout}")
-    private Long timeout;
-
     private final RestTemplate restTemplate;
 
     private final ObjectMapper objectMapper;
