@@ -26,9 +26,11 @@ public class BreedDataSourceImpl implements BreedDataSource {
     private static String HOST;
     private static String SCHEME;
 
-    public BreedDataSourceImpl(RestTemplate restTemplate , ObjectMapper objectMapper) {
+    public BreedDataSourceImpl(RestTemplate restTemplate , ObjectMapper objectMapper , RestTemplate restTemplateTimeout2000 , RestTemplate restTemplateTimeout5000) {
         this.restTemplate = restTemplate;
         this.objectMapper = objectMapper;
+        this.restTemplateTimeout2000 = restTemplateTimeout2000;
+        this.restTemplateTimeout5000 = restTemplateTimeout5000;
     }
 
     @Value ("${dog.ceo.api.url}")
@@ -47,6 +49,10 @@ public class BreedDataSourceImpl implements BreedDataSource {
     private final RestTemplate restTemplate;
 
     private final ObjectMapper objectMapper;
+
+    private final RestTemplate restTemplateTimeout2000;
+
+    private final RestTemplate restTemplateTimeout5000;
 
     private String buildApiUrl(String endpoint) {
         return UriComponentsBuilder.newInstance()
@@ -72,7 +78,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
 
     @Override
     public Map<String, Object> findBreadsWithSub() {
-        ResponseEntity<ClientSuccessResponseDto<Map<String, Object>>> response = restTemplate.exchange(
+        ResponseEntity<ClientSuccessResponseDto<Map<String, Object>>> response = restTemplateTimeout5000.exchange(
                 buildApiUrl("/breeds/list/all") ,
                 HttpMethod.GET ,
                 null ,
@@ -150,7 +156,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
 
     @Override
     public List<String> getSubBreeds(String breed) {
-        ResponseEntity<ClientSuccessResponseDto<List<String>>> response = restTemplate.exchange(
+        ResponseEntity<ClientSuccessResponseDto<List<String>>> response = restTemplateTimeout2000.exchange(
                 buildApiUrl("/breed/" + breed + "/list") ,
                 HttpMethod.GET ,
                 null ,
