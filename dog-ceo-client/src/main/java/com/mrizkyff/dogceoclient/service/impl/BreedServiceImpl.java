@@ -7,10 +7,7 @@ import com.mrizkyff.dogceoclient.service.BreedService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -37,7 +34,7 @@ public class BreedServiceImpl implements BreedService {
         Map<String, Object> breedsWithSub = breedDataSource.findBreedsWithSub();
         List<CompletableFuture<Void>> futures = new ArrayList<>();
 
-        HashMap<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new TreeMap<>();
         breedsWithSub.forEach((breed, subBreeds) -> {
             List<String> subBreedList = (List<String>) subBreeds;
             if (subBreedList.isEmpty()) {
