@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,7 +24,13 @@ class BreedServiceImplTest {
     private ObjectMapper objectMapper;
 
     @Test
-    void getBreedsWithSub() {
+    void getBreedsWithSub() throws JsonProcessingException {
+        Map<String, Object> breedsWithSub = breedService.getBreedsWithSub();
+        assertTrue(breedsWithSub.containsKey("sheepdog-english"));
+        assertTrue(breedsWithSub.containsKey("sheepdog-shetland"));
+        assertEquals(0, ((List<?>) breedsWithSub.get("sheepdog-english")).size());
+        assertEquals(0, ((List<?>) breedsWithSub.get("sheepdog-shetland")).size());
+        log.info("Breed with sub : {}", objectMapper.writeValueAsString(breedsWithSub));
     }
 
     @Test

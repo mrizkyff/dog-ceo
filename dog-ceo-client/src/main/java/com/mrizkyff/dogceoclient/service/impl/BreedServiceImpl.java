@@ -7,6 +7,7 @@ import com.mrizkyff.dogceoclient.service.BreedService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,24 @@ public class BreedServiceImpl implements BreedService {
 
     @Override
     public Map<String, Object> getBreedsWithSub() {
-        return breedDataSource.findBreedsWithSub();
+        Map<String, Object> breedsWithSub = breedDataSource.findBreedsWithSub();
+
+        HashMap<String, Object> result = new HashMap<>();
+        breedsWithSub.forEach((breed, subBreeds) -> {
+            List<String> subBreedList = (List<String>) subBreeds;
+            if (subBreedList.isEmpty()) {
+                result.put(breed, null);
+            }
+            else {
+                if (breed.equalsIgnoreCase("SHEEPDOG")) {
+                    ((List<?>) subBreeds).forEach(subBreed -> result.put(breed + "-" + subBreed , List.of()));
+                }
+                else{
+                    result.put(breed, subBreedList);
+                }
+            }
+        });
+        return result;
     }
 
     @Override
