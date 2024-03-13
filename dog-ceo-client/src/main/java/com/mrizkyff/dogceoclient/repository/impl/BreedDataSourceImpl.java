@@ -73,7 +73,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
 
 
     @Override
-    public Map<String, Object> getBreadsWithSub() {
+    public Map<String, Object> findBreadsWithSub() {
         ResponseEntity<ClientSuccessResponseDto<Map<String, Object>>> response = restTemplateTimeout5000.exchange(
                 buildApiUrl("/breeds/list/all") ,
                 HttpMethod.GET ,
@@ -86,7 +86,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public Map<String, Object> getRandomBreedWithSub() {
+    public Map<String, Object> findRandomBreedWithSub() {
         ResponseEntity<ClientSuccessResponseDto<Map<String, Object>>> response = restTemplate.exchange(
                 buildApiUrl("/breeds/list/all/random") ,
                 HttpMethod.GET ,
@@ -99,7 +99,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public Map<String, Object> getRandomNBreedsWithSub(int n) {
+    public Map<String, Object> findRandomNBreedsWithSub(int n) {
         ResponseEntity<ClientSuccessResponseDto<Map<String, Object>>> response = restTemplate.exchange(
                 buildApiUrl("/breeds/list/all/random/" + n) ,
                 HttpMethod.GET ,
@@ -112,7 +112,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public List<String> getBreeds() {
+    public List<String> findBreeds() {
         ResponseEntity<ClientSuccessResponseDto<List<String>>> response = restTemplate.exchange(
                 buildApiUrl("/breeds/list") ,
                 HttpMethod.GET ,
@@ -125,7 +125,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public String getRandomBreed() {
+    public String findRandomBreed() {
         ResponseEntity<ClientSuccessResponseDto<String>> response = restTemplate.exchange(
                 buildApiUrl("/breeds/list/random") ,
                 HttpMethod.GET ,
@@ -138,7 +138,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public List<String> getRandomNBreeds(int n) {
+    public List<String> findRandomNBreeds(int n) {
         ResponseEntity<ClientSuccessResponseDto<List<String>>> response = restTemplate.exchange(
                 buildApiUrl("/breeds/list/random/" + n) ,
                 HttpMethod.GET ,
@@ -151,7 +151,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public List<String> getSubBreeds(String breed) {
+    public List<String> findSubBreeds(String breed) {
         ResponseEntity<ClientSuccessResponseDto<List<String>>> response = restTemplateTimeout2000.exchange(
                 buildApiUrl("/breed/" + breed + "/list") ,
                 HttpMethod.GET ,
@@ -164,7 +164,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public String getRandomSubBreeds(String breed) {
+    public String findRandomSubBreeds(String breed) {
         ResponseEntity<ClientSuccessResponseDto<String>> response = restTemplate.exchange(
                 buildApiUrl("/breed/" + breed + "/list/random") ,
                 HttpMethod.GET ,
@@ -177,7 +177,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public List<String> getRandomNSubBreeds(String breed , int n) {
+    public List<String> findRandomNSubBreeds(String breed , int n) {
         ResponseEntity<ClientSuccessResponseDto<List<String>>> response = restTemplate.exchange(
                 buildApiUrl("/breed/" + breed + "/list/random/" + n) ,
                 HttpMethod.GET ,
@@ -190,7 +190,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public String getBreed(String breed) {
+    public String findBreed(String breed) {
         ResponseEntity<ClientSuccessResponseDto<String>> response = restTemplate.exchange(
                     buildApiUrl("/breed/" + breed) ,
                     HttpMethod.GET ,
@@ -203,7 +203,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public String getSubBreed(String breed , String subBreed) {
+    public String findSubBreed(String breed , String subBreed) {
         ResponseEntity<ClientSuccessResponseDto<String>> response = restTemplate.exchange(
                     buildApiUrl("/breed/" + breed) ,
                     HttpMethod.GET ,
@@ -216,7 +216,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public String getRandomBreedImages(String breed) {
+    public String findRandomBreedImages(String breed) {
         ResponseEntity<ClientSuccessResponseDto<String>> response = restTemplate.exchange(
                 buildApiUrl("/breeds/image/random") ,
                 HttpMethod.GET ,
@@ -229,7 +229,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public List<String> getNRandomBreedImages(int n) {
+    public List<String> findNRandomBreedImages(int n) {
         ResponseEntity<ClientSuccessResponseDto<List<String>>> response = restTemplate.exchange(
                 buildApiUrl("/breeds/image/random/" + n) ,
                 HttpMethod.GET ,
@@ -242,7 +242,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public List<String> getBreedsImages(String breed) {
+    public List<String> findBreedsImages(String breed) {
         ResponseEntity<ClientSuccessResponseDto<List<String>>> response = restTemplate.exchange(
                 buildApiUrl("/breed/" + breed + "/images") ,
                 HttpMethod.GET ,
@@ -255,7 +255,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public String getBreedRandomImagesWithSub(String breed) {
+    public String findBreedRandomImagesWithSub(String breed) {
         ResponseEntity<ClientSuccessResponseDto<String>> response = restTemplate.exchange(
                 buildApiUrl("/breed/" + breed + "/images/random") ,
                 HttpMethod.GET ,
@@ -268,7 +268,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public List<String> getBreedNRandomImagesWithSub(String breed , int n) {
+    public List<String> findBreedNRandomImagesWithSub(String breed , int n) {
         ResponseEntity<ClientSuccessResponseDto<List<String>>> response = restTemplate.exchange(
                 buildApiUrl("/breed/" + breed + "/images/random/" + n) ,
                 HttpMethod.GET ,
@@ -281,7 +281,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public List<String> getSubBreedImages(String breed , String subBreed) {
+    public List<String> findSubBreedImages(String breed , String subBreed) {
         ResponseEntity<ClientSuccessResponseDto<List<String>>> response = restTemplate.exchange(
                 buildApiUrl("/breed/" + breed + "/" + subBreed + "/images") ,
                 HttpMethod.GET ,
@@ -294,7 +294,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public String getSubBreedRandomImagesWithSub(String breed , String subBreed) {
+    public String findSubBreedRandomImagesWithSub(String breed , String subBreed) {
         ResponseEntity<ClientSuccessResponseDto<String>> response = restTemplate.exchange(
                 buildApiUrl("/breed/" + breed + "/" + subBreed + "/images/random") ,
                 HttpMethod.GET ,
@@ -307,7 +307,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
     }
 
     @Override
-    public List<String> getSubBreedNRandomImagesWithSub(String breed , String subBreed , int n) {
+    public List<String> findSubBreedNRandomImagesWithSub(String breed , String subBreed , int n) {
         ResponseEntity<ClientSuccessResponseDto<List<String>>> response = restTemplate.exchange(
                 buildApiUrl("/breed/" + breed + "/" + subBreed + "/images/random/" + n) ,
                 HttpMethod.GET ,
