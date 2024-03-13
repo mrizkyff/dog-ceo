@@ -73,7 +73,7 @@ public class BreedDataSourceImpl implements BreedDataSource {
 
 
     @Override
-    public Map<String, Object> findBreadsWithSub() {
+    public Map<String, Object> findBreedsWithSub() {
         ResponseEntity<ClientSuccessResponseDto<Map<String, Object>>> response = restTemplateTimeout5000.exchange(
                 buildApiUrl("/breeds/list/all") ,
                 HttpMethod.GET ,
