@@ -7,9 +7,11 @@ import com.mrizkyff.dogceoclient.service.BreedService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @Slf4j
@@ -33,6 +35,7 @@ public class BreedServiceImpl implements BreedService {
     @Override
     public Map<String, Object> getBreedsWithSub() {
         Map<String, Object> breedsWithSub = breedDataSource.findBreedsWithSub();
+        List<CompletableFuture<Void>> futures = new ArrayList<>();
 
         HashMap<String, Object> result = new HashMap<>();
         breedsWithSub.forEach((breed, subBreeds) -> {
@@ -44,11 +47,24 @@ public class BreedServiceImpl implements BreedService {
                 if (breed.equalsIgnoreCase("SHEEPDOG")) {
                     ((List<?>) subBreeds).forEach(subBreed -> result.put(breed + "-" + subBreed , List.of()));
                 }
-                else{
-                    result.put(breed, subBreedList);
+                if (breed.equalsIgnoreCase("TERRIER")) {
+                    ((List<?>) subBreeds).forEach(subBreed -> {
+                        CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> breedDataSource.findSubBreedImages(breed, (String) subBreed))
+                                .thenAccept(images -> {
+                                    log.info("Worker from:{}", Thread.currentThread().getName());
+                                    result.put(breed + "-" + subBreed , images);
+                                });
+                        futures.add(future);
+                    });
+                }
+                if (!breed.equalsIgnoreCase("SHEEPDOG") && !breed.equalsIgnoreCase("TERRIER")) {
+                    result.put(breed , subBreeds);
                 }
             }
         });
+
+        CompletableFuture<Void> allOf = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+        allOf.join();
         return result;
     }
 
