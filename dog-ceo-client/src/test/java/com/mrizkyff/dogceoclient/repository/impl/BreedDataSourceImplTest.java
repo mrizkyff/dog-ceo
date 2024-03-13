@@ -3,7 +3,6 @@ package com.mrizkyff.dogceoclient.repository.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.mrizkyff.dogceoclient.exception.DataNotFoundException;
 import com.mrizkyff.dogceoclient.repository.BreedDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
