@@ -126,7 +126,7 @@ class BreedDataSourceImplTest {
 
     @Test
     void getBreedsImages() throws JsonProcessingException {
-        List<String> breedsImages = breedDataSource.findBreedsImages("bulldog");
+        List<String> breedsImages = breedDataSource.findBreedsImages("shiba");
         assertNotNull(breedsImages);
         log.info("Breed images : {}", objectMapper.writeValueAsString(breedsImages));
     }
