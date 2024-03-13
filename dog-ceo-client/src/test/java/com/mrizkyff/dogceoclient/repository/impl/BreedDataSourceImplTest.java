@@ -43,6 +43,7 @@ class BreedDataSourceImplTest {
     void getRandomNBreedsWithSub() throws JsonProcessingException {
         Map<String, Object> randomNBreedsWithSub = breedDataSource.getRandomNBreedsWithSub(3);
         assertNotNull(randomNBreedsWithSub);
+        assertEquals(3, randomNBreedsWithSub.size());
         log.info("Random 3 breeds with sub : {}", objectMapper.writeValueAsString(randomNBreedsWithSub));
     }
 
@@ -64,6 +65,7 @@ class BreedDataSourceImplTest {
     void getRandomNBreeds() throws JsonProcessingException {
         List<String> randomNBreeds = breedDataSource.getRandomNBreeds(10);
         assertNotNull(randomNBreeds);
+        assertEquals(10, randomNBreeds.size());
         log.info("Random 10 breeds : {}", objectMapper.writeValueAsString(randomNBreeds));
     }
 
@@ -85,6 +87,7 @@ class BreedDataSourceImplTest {
     void getRandomNSubBreeds() throws JsonProcessingException {
         List<String> randomNSubBreeds = breedDataSource.getRandomNSubBreeds("bulldog", 2);
         assertNotNull(randomNSubBreeds);
+        assertEquals(2, randomNSubBreeds.size());
         log.info("Random 2 sub breeds : {}", objectMapper.writeValueAsString(randomNSubBreeds));
     }
 
@@ -117,6 +120,7 @@ class BreedDataSourceImplTest {
     void getNRandomBreedImages() throws JsonProcessingException {
         List<String> nRandomBreedImages = breedDataSource.getNRandomBreedImages(3);
         assertNotNull(nRandomBreedImages);
+        assertEquals(3, nRandomBreedImages.size());
         log.info("3 Breed random images : {}", objectMapper.writeValueAsString(nRandomBreedImages));
     }
 
@@ -138,6 +142,7 @@ class BreedDataSourceImplTest {
     void getBreedNRandomImagesWithSub() throws JsonProcessingException {
         List<String> breedNRandomImagesWithSub = breedDataSource.getBreedNRandomImagesWithSub("bulldog", 3);
         assertNotNull(breedNRandomImagesWithSub);
+        assertEquals(3, breedNRandomImagesWithSub.size());
         log.info("3 Breed random images with sub : {}", objectMapper.writeValueAsString(breedNRandomImagesWithSub));
     }
 
@@ -159,6 +164,7 @@ class BreedDataSourceImplTest {
     void getSubBreedNRandomImagesWithSub() throws JsonProcessingException {
         List<String> subBreedNRandomImagesWithSub = breedDataSource.getSubBreedNRandomImagesWithSub("bulldog", "boston", 3);
         assertNotNull(subBreedNRandomImagesWithSub);
+        assertEquals(3, subBreedNRandomImagesWithSub.size());
         log.info("3 Sub breed random images with sub : {}", objectMapper.writeValueAsString(subBreedNRandomImagesWithSub));
     }
 }
