@@ -49,7 +49,11 @@ public class BreedServiceImpl implements BreedService {
                         CompletableFuture<Void> future = CompletableFuture.supplyAsync(() -> breedDataSource.findSubBreedImages(breed, (String) subBreed))
                                 .thenAccept(images -> {
                                     log.info("Worker from:{}", Thread.currentThread().getName());
-                                    result.put(breed + "-" + subBreed , images);
+                                    List<String> escapedImages = images.stream()
+                                            .map(image -> image.replace("/", "\\/"))
+                                            .toList();
+                                    log.info("EScaped: {}", escapedImages);
+                                    result.put(breed + "-" + subBreed , escapedImages);
                                 });
                         futures.add(future);
                     });
