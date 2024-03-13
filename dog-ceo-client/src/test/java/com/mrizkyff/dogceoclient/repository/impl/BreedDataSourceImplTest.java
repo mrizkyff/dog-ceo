@@ -27,7 +27,7 @@ class BreedDataSourceImplTest {
 
     @Test
     void findBreadsWithSub() throws JsonProcessingException {
-        Map<String, Object> breadsWithSub = breedDataSource.findBreadsWithSub();
+        Map<String, Object> breadsWithSub = breedDataSource.getBreadsWithSub();
         assertNotNull(breadsWithSub);
         log.info("Breed with sub : {}", objectMapper.writeValueAsString(breadsWithSub));
     }

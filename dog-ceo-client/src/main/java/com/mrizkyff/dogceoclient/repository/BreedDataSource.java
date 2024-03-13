@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface BreedDataSource {
-    Map<String, Object> findBreadsWithSub();
+    Map<String, Object> getBreadsWithSub();
     Map<String, Object> getRandomBreedWithSub();
     Map<String, Object> getRandomNBreedsWithSub(int n);
     List<String> getBreeds();
