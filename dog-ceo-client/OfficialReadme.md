@@ -72,79 +72,79 @@ $ curl -X GET http://127.0.0.1:8000/cache-clear -H 'auth-key: something-really-s
 
 ## Endpoints
 
-#### /breeds/list/all
+#### https://dog.ceo/api/breeds/list/all
 
 List all breed names including sub breeds.
 
-#### /breeds/list/all/random
+#### https://dog.ceo/api/breeds/list/all/random
 
 Get random breed including any sub breeds.
 
-#### /breeds/list/all/random/10
+#### https://dog.ceo/api/breeds/list/all/random/10
 
 Get 10 random breeds including any sub breeds.
 
-#### /breeds/list
+#### https://dog.ceo/api/breeds/list
 
 List all master breed names.
 
-#### /breeds/list/random
+#### https://dog.ceo/api/breeds/list/random
 
 Get single random master breed.
 
-#### /breeds/list/random/10
+#### https://dog.ceo/api/breeds/list/random/10
 
 Get 10 random master breeds.
 
-#### /breed/{breed}/list
+#### https://dog.ceo/api/breed/{breed}/list
 
 List sub breeds.
 
-#### /breed/{breed}/list/random
+#### https://dog.ceo/api/breed/{breed}/list/random
 
 List random sub breed.
 
-#### /breed/{breed}/list/random/10
+#### https://dog.ceo/api/breed/{breed}/list/random/10
 
 List 10 random sub breeds.
 
-#### /breed/{breed}
+#### https://dog.ceo/api/breed/{breed}
 
 Get master breed info (data is incomplete, see content folder).
 
-#### /breed/{breed}/{breed2}
+#### https://dog.ceo/api/breed/{breed}/{breed2}
 
 Get sub breed info (data is incomplete, see content folder).
 
-#### /breeds/image/random
+#### https://dog.ceo/api/breeds/image/random
 
 Random image from any breed.
 
-#### /breeds/image/random/3
+#### https://dog.ceo/api/breeds/image/random/3
 
 Get 3 random images from any breed (max. 50)
 
-#### /breed/{breed}/images
+#### https://dog.ceo/api/breed/{breed}/images
 
 Get all breed images.
 
-#### /breed/{breed}/images/random
+#### https://dog.ceo/api/breed/{breed}/images/random
 
 Get random image from a breed (and all its sub-breeds).
 
-#### /breed/{breed}/images/random/4
+#### https://dog.ceo/api/breed/{breed}/images/random/4
 
 Get 4 random images from a breed (and all its sub-breeds).
 
-#### /breed/{breed}/{breed2}/images
+#### https://dog.ceo/api/breed/{breed}/{breed2}/images
 
 Get all images from a sub breed.
 
-#### /breed/{breed}/{breed2}/images/random
+#### https://dog.ceo/api/breed/{breed}/{breed2}/images/random
 
 Get random image from a sub breed.
 
-#### /breed/{breed}/{breed2}/images/random/5
+#### https://dog.ceo/api/breed/{breed}/{breed2}/images/random/5
 
 Get 5 random images from a sub breed.
 
