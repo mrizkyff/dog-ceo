@@ -1,12 +1,13 @@
 package com.mrizkyff.dogceoclient.repository;
 
+import java.util.List;
 import java.util.Map;
 
 public interface BreedDataSource {
     Map<String, Object> findBreadsWithSub();
     Map<String, Object> getRandomBreedWithSub();
-//    List<Breed> getRandomNBreedsWithSub(int n);
-//    List<Breed> getBreeds();
+    Map<String, Object> getRandomNBreedsWithSub(int n);
+    List<String> getBreeds();
 //    Breed getRandomBreed();
 //    List<Breed> getRandomNBreeds(int n);
 //    List<SubBreed> getSubBreeds(String breed);

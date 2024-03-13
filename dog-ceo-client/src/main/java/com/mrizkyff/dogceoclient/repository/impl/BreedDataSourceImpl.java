@@ -1,5 +1,6 @@
 package com.mrizkyff.dogceoclient.repository.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mrizkyff.dogceoclient.dto.client.ClientSuccessResponseDto;
 import com.mrizkyff.dogceoclient.exception.InternalServerException;
@@ -9,17 +10,24 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
-@Repository
+@Component
 @Slf4j
 public class BreedDataSourceImpl implements BreedDataSource {
     private static String HOST;
     private static String SCHEME;
+
+    public BreedDataSourceImpl(RestTemplate restTemplate , ObjectMapper objectMapper) {
+        this.restTemplate = restTemplate;
+        this.objectMapper = objectMapper;
+    }
 
     @Value ("${dog.ceo.api.url}")
     private void setDogApi(String dogApi) {
@@ -35,12 +43,8 @@ public class BreedDataSourceImpl implements BreedDataSource {
     private Long timeout;
 
     private final RestTemplate restTemplate;
-    private final ObjectMapper objectMapper;
 
-    public BreedDataSourceImpl(RestTemplate restTemplate , ObjectMapper objectMapper) {
-        this.restTemplate = restTemplate;
-        this.objectMapper = objectMapper;
-    }
+    private final ObjectMapper objectMapper;
 
     private String buildApiUrl(String endpoint) {
         return UriComponentsBuilder.newInstance()
@@ -49,6 +53,12 @@ public class BreedDataSourceImpl implements BreedDataSource {
                 .path(endpoint)
                 .build()
                 .toUriString();
+    }
+
+    private void handleErrorResponse(ResponseEntity<?> response) {
+        if (response.getBody() == null || !response.getStatusCode().is2xxSuccessful()) {
+            throw new InternalServerException("Internal Server Error : Dog CEO API is not available");
+        }
     }
 
 
@@ -61,13 +71,8 @@ public class BreedDataSourceImpl implements BreedDataSource {
                 new ParameterizedTypeReference<>() {
                 }
         );
-        if (response.getBody() == null) {
-            throw new InternalServerException("Internal Server Error : Dog CEO API is not available");
-        }
-        if (!response.getBody().getStatus().equals("success")) {
-            throw new InternalServerException("Internal Server Error : " + response.getBody().getMessage());
-        }
-        return response.getBody().getMessage();
+        handleErrorResponse(response);
+        return Objects.requireNonNull(response.getBody()).getMessage();
     }
 
     @Override
@@ -79,12 +84,34 @@ public class BreedDataSourceImpl implements BreedDataSource {
                 new ParameterizedTypeReference<>() {
                 }
         );
-        if (response.getBody() == null) {
-            throw new InternalServerException("Internal Server Error : Dog CEO API is not available");
-        }
-        if (!response.getBody().getStatus().equals("success")) {
-            throw new InternalServerException("Internal Server Error : " + response.getBody().getMessage());
-        }
-        return response.getBody().getMessage();
+        handleErrorResponse(response);
+        return Objects.requireNonNull(response.getBody()).getMessage();
     }
+
+    @Override
+    public Map<String, Object> getRandomNBreedsWithSub(int n) {
+        ResponseEntity<ClientSuccessResponseDto<Map<String, Object>>> response = restTemplate.exchange(
+                buildApiUrl("/breeds/list/all/random/" + n) ,
+                HttpMethod.GET ,
+                null ,
+                new ParameterizedTypeReference<>() {
+                }
+        );
+        handleErrorResponse(response);
+        return Objects.requireNonNull(response.getBody()).getMessage();
+    }
+
+    @Override
+    public List<String> getBreeds() {
+        ResponseEntity<ClientSuccessResponseDto<List<String>>> response = restTemplate.exchange(
+                buildApiUrl("/breeds/list") ,
+                HttpMethod.GET ,
+                null ,
+                new ParameterizedTypeReference<>() {
+                }
+        );
+        handleErrorResponse(response);
+        return Objects.requireNonNull(response.getBody()).getMessage();
+    }
+
 }

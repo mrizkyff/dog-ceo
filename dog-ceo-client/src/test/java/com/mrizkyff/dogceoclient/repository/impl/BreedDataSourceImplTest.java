@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -35,5 +36,19 @@ class BreedDataSourceImplTest {
         Map<String, Object> randomBreedWithSub = breedDataSource.getRandomBreedWithSub();
         assertNotNull(randomBreedWithSub);
         log.info("Random breed with sub : {}", objectMapper.writeValueAsString(randomBreedWithSub));
+    }
+
+    @Test
+    void getRandomNBreedsWithSub() throws JsonProcessingException {
+        Map<String, Object> randomNBreedsWithSub = breedDataSource.getRandomNBreedsWithSub(3);
+        assertNotNull(randomNBreedsWithSub);
+        log.info("Random 3 breeds with sub : {}", objectMapper.writeValueAsString(randomNBreedsWithSub));
+    }
+
+    @Test
+    void getBreeds() throws JsonProcessingException {
+        List<String> breeds = breedDataSource.getBreeds();
+        assertNotNull(breeds);
+        log.info("Breeds : {}", objectMapper.writeValueAsString(breeds));
     }
 }
