@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.web.client.HttpClientErrorException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -93,7 +94,7 @@ class BreedDataSourceImplTest {
 
     @Test
     void getBreed() {
-        assertThrowsExactly(DataNotFoundException.class, () -> {
+        assertThrowsExactly(HttpClientErrorException.NotFound.class, () -> {
             String breed = breedDataSource.getBreed("bulldog");
             assertNotNull(breed);
             log.info("Breed : {}", objectMapper.writeValueAsString(breed));
@@ -102,7 +103,7 @@ class BreedDataSourceImplTest {
 
     @Test
     void getSubBreed() {
-        assertThrowsExactly(DataNotFoundException.class, () -> {
+        assertThrowsExactly(HttpClientErrorException.NotFound.class, () -> {
             String subBreed = breedDataSource.getSubBreed("bulldog", "boston");
             assertNotNull(subBreed);
             log.info("Sub breed : {}", objectMapper.writeValueAsString(subBreed));

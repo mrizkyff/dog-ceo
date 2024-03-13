@@ -12,7 +12,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -195,43 +194,27 @@ public class BreedDataSourceImpl implements BreedDataSource {
 
     @Override
     public String getBreed(String breed) {
-        ResponseEntity<ClientSuccessResponseDto<String>> response = null;
-        try {
-            response = restTemplate.exchange(
+        ResponseEntity<ClientSuccessResponseDto<String>> response = restTemplate.exchange(
                     buildApiUrl("/breed/" + breed) ,
                     HttpMethod.GET ,
                     null ,
                     new ParameterizedTypeReference<>() {
                     }
             );
-        } catch (HttpClientErrorException.NotFound e) {
-            throw new DataNotFoundException(e.getMessage());
-        } catch (HttpClientErrorException e) {
-            System.err.println("Error: Client error - " + e.getMessage());
-        } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
-        }
+        handleErrorResponse(response, Objects.requireNonNull(response.getBody()).getStatus());
         return Objects.requireNonNull(response.getBody()).getMessage();
     }
 
     @Override
     public String getSubBreed(String breed , String subBreed) {
-        ResponseEntity<ClientSuccessResponseDto<String>> response = null;
-        try {
-            response = restTemplate.exchange(
+        ResponseEntity<ClientSuccessResponseDto<String>> response = restTemplate.exchange(
                     buildApiUrl("/breed/" + breed) ,
                     HttpMethod.GET ,
                     null ,
                     new ParameterizedTypeReference<>() {
                     }
             );
-        } catch (HttpClientErrorException.NotFound e) {
-            throw new DataNotFoundException(e.getMessage());
-        } catch (HttpClientErrorException e) {
-            System.err.println("Error: Client error - " + e.getMessage());
-        } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
-        }
+        handleErrorResponse(response, Objects.requireNonNull(response.getBody()).getStatus());
         return Objects.requireNonNull(response.getBody()).getMessage();
     }
 

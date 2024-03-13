@@ -10,6 +10,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
 
 import java.time.LocalDateTime;
@@ -48,6 +49,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetail , HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler ( HttpClientErrorException.NotFound.class )
+    public final ResponseEntity<BaseErrorDetail> handleHttpClientErrorExceptionNotFound(HttpClientErrorException.NotFound ex , WebRequest request) {
+        BaseErrorDetail errorDetail = new BaseErrorDetail(LocalDateTime.now() , HttpStatus.NOT_FOUND.value() , HttpStatus.NOT_FOUND.getReasonPhrase() ,
+                ex.getMessage() , request.getDescription(false));
+        return new ResponseEntity<>(errorDetail , HttpStatus.NOT_FOUND);
+    }
 
 }
 
