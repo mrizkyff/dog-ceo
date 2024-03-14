@@ -52,7 +52,6 @@ public class BreedServiceImpl implements BreedService {
                                     List<String> escapedImages = images.stream()
                                             .map(image -> image.replace("/", "\\/"))
                                             .toList();
-                                    log.info("EScaped: {}", escapedImages);
                                     result.put(breed + "-" + subBreed , escapedImages);
                                 });
                         futures.add(future);
