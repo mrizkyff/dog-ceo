@@ -3,9 +3,11 @@ package com.mrizkyff.dogceorestful.repository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.mrizkyff.dogceorestful.model.Breed;
 import com.mrizkyff.dogceorestful.model.SubBreed;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +30,22 @@ class SubBreedRepositoryTest {
     @Autowired
     private SubBreedRepository subBreedRepository;
 
+    @Autowired
+    private BreedRepository breedRepository;
+
+    private final Breed breed = new Breed();
+
     private final ObjectMapper objectMapper = new ObjectMapper()
             .enable(SerializationFeature.INDENT_OUTPUT)
             .registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
+
+    @BeforeAll
+    void beforeAll() {
+        breed.setName("sheepdog");
+        breed.setCreatedDate(Instant.now());
+        breed.setLastModifiedDate(Instant.now());
+        breedRepository.save(breed);
+    }
 
     @Test
     void CreateSubBreedSuccess() throws JsonProcessingException {
@@ -38,6 +53,7 @@ class SubBreedRepositoryTest {
         subBreed.setName("english");
         subBreed.setCreatedDate(Instant.now());
         subBreed.setLastModifiedDate(Instant.now());
+        subBreed.setBreed(breed);
         subBreedRepository.save(subBreed);
 
         List<SubBreed> subBreeds = subBreedRepository.findAll();
@@ -50,6 +66,7 @@ class SubBreedRepositoryTest {
         subBreed.setName("english");
         subBreed.setCreatedDate(Instant.now());
         subBreed.setLastModifiedDate(Instant.now());
+        subBreed.setBreed(breed);
         subBreedRepository.save(subBreed);
 
         subBreed.setName("american");
@@ -66,6 +83,7 @@ class SubBreedRepositoryTest {
         subBreed.setName("english");
         subBreed.setCreatedDate(Instant.now());
         subBreed.setLastModifiedDate(Instant.now());
+        subBreed.setBreed(breed);
         subBreedRepository.save(subBreed);
 
         subBreedRepository.delete(subBreed);
@@ -79,6 +97,7 @@ class SubBreedRepositoryTest {
         subBreed.setName("english");
         subBreed.setCreatedDate(Instant.now());
         subBreed.setLastModifiedDate(Instant.now());
+        subBreed.setBreed(breed);
         subBreedRepository.save(subBreed);
 
         SubBreed existingSubBreed = subBreedRepository.findById(subBreed.getId()).orElse(null);
@@ -91,12 +110,14 @@ class SubBreedRepositoryTest {
         subBreed1.setName("english");
         subBreed1.setCreatedDate(Instant.now());
         subBreed1.setLastModifiedDate(Instant.now());
+        subBreed1.setBreed(breed);
         subBreedRepository.save(subBreed1);
 
         SubBreed subBreed2 = new SubBreed();
         subBreed2.setName("american");
         subBreed2.setCreatedDate(Instant.now());
         subBreed2.setLastModifiedDate(Instant.now());
+        subBreed2.setBreed(breed);
         subBreedRepository.save(subBreed2);
 
         List<SubBreed> subBreeds = subBreedRepository.findAll();

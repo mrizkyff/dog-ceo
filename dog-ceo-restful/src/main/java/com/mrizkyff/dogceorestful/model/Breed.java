@@ -19,5 +19,6 @@ public class Breed extends Auditable implements Serializable {
     private String name;
 
     @OneToMany ( mappedBy = "breed" , cascade = CascadeType.ALL , fetch = FetchType.LAZY )
+    @JsonManagedReference
     private List<SubBreed> subBreeds;
 }
