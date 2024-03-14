@@ -15,9 +15,9 @@ import java.util.List;
 @Entity
 @Builder
 public class Breed extends Auditable implements Serializable {
+    @Column ( name = "name" , nullable = false , unique = true )
     private String name;
 
     @OneToMany ( mappedBy = "breed" , cascade = CascadeType.ALL , fetch = FetchType.LAZY )
-    @JsonManagedReference
     private List<SubBreed> subBreeds;
 }

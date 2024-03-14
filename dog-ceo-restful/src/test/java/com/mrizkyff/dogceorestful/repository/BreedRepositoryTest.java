@@ -33,7 +33,7 @@ class BreedRepositoryTest {
             .registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
 
     @Test
-    void CreateBreed() throws JsonProcessingException {
+    void CreateBreedSuccess() throws JsonProcessingException {
         Breed breed = new Breed();
         breed.setName("SHIBA");
         breedRepository.save(breed);
@@ -46,7 +46,7 @@ class BreedRepositoryTest {
     }
 
     @Test
-    void GetBreed() throws JsonProcessingException {
+    void GetBreedSuccess() throws JsonProcessingException {
         Breed breed = new Breed();
         breed.setName("SHIBA");
         breedRepository.save(breed);
@@ -58,7 +58,7 @@ class BreedRepositoryTest {
     }
 
     @Test
-    void DeleteBreed() throws JsonProcessingException {
+    void DeleteBreedSuccess() throws JsonProcessingException {
         Breed breed = new Breed();
         breed.setName("SHIBA");
         breedRepository.save(breed);
@@ -74,7 +74,7 @@ class BreedRepositoryTest {
     }
 
     @Test
-    void UpdateBreed() throws JsonProcessingException {
+    void UpdateBreedSuccess() throws JsonProcessingException {
         Breed breed = new Breed();
         breed.setName("SHIBA");
         breedRepository.save(breed);
@@ -87,6 +87,22 @@ class BreedRepositoryTest {
 
         List<Breed> breeds = breedRepository.findAll();
         assertEquals(1, breeds.size());
+        assertEquals("SHIBA INU", breeds.getFirst().getName());
+        log.info("Breeds: {}", objectMapper.writeValueAsString(breeds));
+    }
+
+    @Test
+    void GetAllBreedsSuccess() throws JsonProcessingException {
+        Breed breed = new Breed();
+        breed.setName("SHIBA");
+        breedRepository.save(breed);
+
+        Breed breed2 = new Breed();
+        breed2.setName("SHIBA INU");
+        breedRepository.save(breed2);
+
+        List<Breed> breeds = breedRepository.findAll();
+        assertEquals(2, breeds.size());
         log.info("Breeds: {}", objectMapper.writeValueAsString(breeds));
     }
 

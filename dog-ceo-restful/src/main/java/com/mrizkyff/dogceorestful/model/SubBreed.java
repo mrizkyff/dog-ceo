@@ -14,11 +14,11 @@ import java.io.Serializable;
 @Entity
 @Builder
 public class SubBreed extends Auditable implements Serializable {
+    @Column ( name = "name" , nullable = false , unique = true )
     private String name;
 
     @ManyToOne ( cascade = CascadeType.ALL )
     @JoinColumn ( name = "breed_id" )
-    @JsonBackReference
     private Breed breed;
 
 }
