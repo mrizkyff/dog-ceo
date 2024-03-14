@@ -9,7 +9,7 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class WebResponse {
-    private Map<String, Object> message;
+public class WebResponse<T> {
+    private T message;
     private String status;
 }

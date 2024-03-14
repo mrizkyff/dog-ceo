@@ -1,5 +1,6 @@
 package com.mrizkyff.dogceoclient.controller;
 
+import com.mrizkyff.dogceoclient.dto.client.WebResponse;
 import com.mrizkyff.dogceoclient.service.BreedService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +33,11 @@ public class BreedController {
                     - Extract "terrier" and fetch images using completable future
                     """
     )
-    public Map<String, Object> getAllBreedsWithSub() {
-        return breedService.getBreedsWithSub();
+    public WebResponse<Map<String, Object>> getAllBreedsWithSub() {
+        return new WebResponse<>(
+                breedService.getBreedsWithSub() ,
+                "success"
+        );
     }
 
     @GetMapping("/{breed}/images")
@@ -46,10 +50,13 @@ public class BreedController {
                     - Lambda function
                     """
     )
-    public List<String> getBreedsImages(
+    public WebResponse<List<String>> getBreedsImages(
             @PathVariable("breed") String breed
     ) {
-        return breedService.getBreedsImages(breed);
+        return new WebResponse<>(
+                breedService.getBreedsImages(breed),
+                "success"
+        );
     }
 
 
@@ -63,11 +70,14 @@ public class BreedController {
                     - Method reference
                     """
     )
-    public List<String> getBreedNRandomImagesWithSub(
+    public WebResponse<List<String>> getBreedNRandomImagesWithSub(
             @PathVariable("breed") String breed ,
             @PathVariable ("n") int n
     ) {
-        return breedService.getBreedNRandomImagesWithSub(breed , n);
+        return new WebResponse<>(
+                breedService.getBreedNRandomImagesWithSub(breed , n) ,
+                "success"
+        );
     }
 
 
@@ -80,9 +90,12 @@ public class BreedController {
                     - Timeout 2000ms in restTemplate bean
                     """
     )
-    public List<String> getSubBreeds(
+    public WebResponse<List<String>> getSubBreeds(
             @PathVariable ( "breed" ) String breed
     ) {
-        return breedService.getSubBreeds(breed);
+        return new WebResponse<>(
+                breedService.getSubBreeds(breed) ,
+                "success"
+        );
     }
 }
