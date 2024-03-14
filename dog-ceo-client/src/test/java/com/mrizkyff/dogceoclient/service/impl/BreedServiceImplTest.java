@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,7 +31,17 @@ class BreedServiceImplTest {
         assertTrue(breedsWithSub.containsKey("sheepdog-shetland"));
         assertEquals(0, ((List<?>) breedsWithSub.get("sheepdog-english")).size());
         assertEquals(0, ((List<?>) breedsWithSub.get("sheepdog-shetland")).size());
+
+        Pattern pattern = Pattern.compile("terrier-\\w+"); // \\w+ cocokkan dengan satu atau lebih karakter alfanumerik atau garis bawah
+        int terrierCount = 0;
+        for (String key : breedsWithSub.keySet()) {
+            if (pattern.matcher(key).matches()) {
+                terrierCount += 1;
+            }
+        }
+        log.info("Terrier-** Count: {}", terrierCount);
         log.info("Breed with sub : {}", objectMapper.writeValueAsString(breedsWithSub));
+        assertEquals(23 , terrierCount);
     }
 
     @Test
