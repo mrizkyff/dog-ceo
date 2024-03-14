@@ -54,6 +54,7 @@ class SubBreedRepositoryTest {
         subBreed.setCreatedDate(Instant.now());
         subBreed.setLastModifiedDate(Instant.now());
         subBreed.setBreed(breed);
+        subBreed.setImages(List.of("image1", "image2"));
         subBreedRepository.save(subBreed);
 
         List<SubBreed> subBreeds = subBreedRepository.findAll();

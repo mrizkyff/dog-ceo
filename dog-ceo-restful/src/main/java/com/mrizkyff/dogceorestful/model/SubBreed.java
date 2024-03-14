@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Setter
 @Getter
@@ -21,5 +22,8 @@ public class SubBreed extends Auditable implements Serializable {
     @JoinColumn ( name = "breed_id" )
     @JsonBackReference
     private Breed breed;
+
+    @ElementCollection
+    List<String> images;
 
 }
