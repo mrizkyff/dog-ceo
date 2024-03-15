@@ -10,6 +10,10 @@ import com.mrizkyff.dogceorestful.model.SubBreed;
 import com.mrizkyff.dogceorestful.repository.BreedRepository;
 import com.mrizkyff.dogceorestful.repository.SubBreedRepository;
 import com.mrizkyff.dogceorestful.service.BreedService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,6 +35,10 @@ public class BreedServiceImpl implements BreedService {
     }
 
     @Override
+    @Caching(
+            put = {@CachePut(value = "breed" , key = "#breed.id")},
+            evict = {@CacheEvict(value = "breeds" , allEntries = true)}
+    )
     public Breed createBreed(Breed breed) {
         if (breedRepository.existsByName(breed.getName())) {
             throw new BadRequestException("Breed with name " + breed.getName() + " already exists");
@@ -43,6 +51,10 @@ public class BreedServiceImpl implements BreedService {
     }
 
     @Override
+    @Caching(
+            put = {@CachePut(value = "breed" , key = "#id")},
+            evict = {@CacheEvict(value = "breeds" , allEntries = true)}
+    )
     public Breed updateBreed(UUID id , Breed breed) {
         Breed existingBreed = getBreed(id);
         if (breed.getName() != null) {
@@ -79,17 +91,25 @@ public class BreedServiceImpl implements BreedService {
     }
 
     @Override
+    @Caching(
+            evict = {
+                    @CacheEvict(value = "breed" , key = "#breedId"),
+                    @CacheEvict(value = "breeds" , allEntries = true)
+            }
+    )
     public void deleteBreed(UUID breedId) {
         Breed existingBreed = getBreed(breedId);
         breedRepository.delete(existingBreed);
     }
 
     @Override
+    @Cacheable(value = "breed" , key = "#breedId")
     public Breed getBreed(UUID breedId) {
         return breedRepository.findById(breedId).orElseThrow(() -> new DataNotFoundException("Breed with id " + breedId + " not found"));
     }
 
     @Override
+    @Cacheable(value = "breeds")
     public Page<Breed> getBreeds(String name , Pageable pageable) {
         return breedRepository.findAll(name , pageable);
     }
