@@ -66,7 +66,9 @@ public class BreedServiceImpl implements BreedService {
             existingBreed.setName(breed.getName());
         }
 
-        subBreedRepository.deleteAll(existingBreed.getSubBreeds());
+        breed.getSubBreeds().forEach(
+                subBreedRepository::delete
+        );
         existingBreed.setSubBreeds(new ArrayList<>());
         if (!breed.getSubBreeds().isEmpty()) {
             breed.getSubBreeds().forEach(
@@ -116,6 +118,9 @@ public class BreedServiceImpl implements BreedService {
 
     @Override
     public BreedResponseDto mapToDto(Breed breed) {
+        if (breed.getSubBreeds() == null) {
+            breed.setSubBreeds(new ArrayList<>());
+        }
         return new BreedResponseDto(
                 breed.getId() ,
                 breed.getCreatedDate() ,
@@ -133,6 +138,10 @@ public class BreedServiceImpl implements BreedService {
 
     @Override
     public Breed mapToEntity(BreedUpdateRequestDto breedUpdateRequestDto) {
+        if (breedUpdateRequestDto.getSubBreeds() == null) {
+            breedUpdateRequestDto.setSubBreeds(new ArrayList<>());
+        }
+
         return Breed.builder()
                 .name(breedUpdateRequestDto.getName())
                 .subBreeds(
@@ -150,6 +159,9 @@ public class BreedServiceImpl implements BreedService {
 
     @Override
     public Breed mapToEntity(BreedRequestDto breedRequestDto) {
+        if (breedRequestDto.getSubBreeds() == null) {
+            breedRequestDto.setSubBreeds(new ArrayList<>());
+        }
         return Breed.builder()
                 .name(breedRequestDto.getName())
                 .subBreeds(

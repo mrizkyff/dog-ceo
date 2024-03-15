@@ -1,7 +1,8 @@
 package com.mrizkyff.dogceorestful.dto.breed;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Value;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -11,8 +12,13 @@ import java.util.UUID;
 /**
  * DTO for {@link com.mrizkyff.dogceorestful.model.Breed}
  */
-@Value
+@AllArgsConstructor
+@NoArgsConstructor
+@Setter
+@Getter
+@Builder
 public class BreedResponseDto implements Serializable {
+
     UUID id;
     @JsonFormat (pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Jakarta")
     Instant createdDate;

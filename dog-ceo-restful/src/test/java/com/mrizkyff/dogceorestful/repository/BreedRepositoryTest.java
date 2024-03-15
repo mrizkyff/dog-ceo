@@ -116,7 +116,7 @@ class BreedRepositoryTest {
 
         List<Breed> breeds = breedRepository.findAll();
         assertEquals(1, breeds.size());
-        assertEquals("sheepdog INU", breeds.getFirst().getName());
+        assertEquals("sheepdog inu", breeds.getFirst().getName());
         log.info("Breeds: {}", objectMapper.writeValueAsString(breeds));
     }
 

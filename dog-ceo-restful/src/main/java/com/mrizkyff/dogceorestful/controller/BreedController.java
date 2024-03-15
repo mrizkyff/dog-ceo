@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -36,6 +37,7 @@ public class BreedController {
                     Name is required.
                     """
     )
+    @ResponseStatus( HttpStatus.CREATED)
     public WebResponse<BreedResponseDto> createBreed(@RequestBody @Valid BreedRequestDto breedRequestDto) {
         return WebResponse.<BreedResponseDto>builder()
                 .data(breedService.mapToDto(
@@ -94,9 +96,7 @@ public class BreedController {
     }
 
     @PutMapping(
-            value = "/{id}",
-            produces = "application/json",
-            consumes = "application/json"
+            value = "/{id}"
     )
     @Operation (
             summary = "Update Breed",
@@ -119,9 +119,7 @@ public class BreedController {
     }
 
     @DeleteMapping(
-            value = "/{id}",
-            produces = "application/json",
-            consumes = "application/json"
+            value = "/{id}"
     )
     @Operation (
             summary = "Delete Breed",
