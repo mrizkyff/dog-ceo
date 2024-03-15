@@ -41,7 +41,7 @@ class BreedServiceImplTest {
         ));
 
         Breed breed = new Breed();
-        breed.setName("sheepdog");
+        breed.setName("sheepdog2ss");
         breed.setSubBreeds(List.of(subBreed));
         subBreed.setBreed(breed);
 
