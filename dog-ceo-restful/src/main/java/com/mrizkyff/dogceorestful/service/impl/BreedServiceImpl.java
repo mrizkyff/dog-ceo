@@ -53,8 +53,10 @@ public class BreedServiceImpl implements BreedService {
             }
             existingBreed.setName(breed.getName());
         }
-        if (!breed.getSubBreeds().isEmpty()) {
 
+        subBreedRepository.deleteAll(existingBreed.getSubBreeds());
+        existingBreed.setSubBreeds(new ArrayList<>());
+        if (!breed.getSubBreeds().isEmpty()) {
             breed.getSubBreeds().forEach(
                     subBreed -> {
                         if (subBreed.getId() == null) {
@@ -71,10 +73,7 @@ public class BreedServiceImpl implements BreedService {
                     }
             );
         }
-        else {
-            subBreedRepository.deleteAll(existingBreed.getSubBreeds());
-            existingBreed.setSubBreeds(new ArrayList<>());
-        }
+
         breedRepository.save(existingBreed);
         return existingBreed;
     }
