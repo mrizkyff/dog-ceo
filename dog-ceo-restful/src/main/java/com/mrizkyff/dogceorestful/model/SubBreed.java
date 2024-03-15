@@ -19,7 +19,7 @@ public class SubBreed extends Auditable implements Serializable {
     @Column ( name = "name" , nullable = false )
     private String name;
 
-    @ManyToOne (optional = false)
+    @ManyToOne (optional = false, fetch = FetchType.EAGER)
     @JoinColumn ( name = "breed_id" )
     @JsonBackReference
     private Breed breed;
