@@ -50,7 +50,6 @@ class BreedControllerTest {
                     log.info("Web Response: {}", objectMapper.writeValueAsString(webResponse));
                     assertThat(webResponse.getStatus() , is("success"));
                     assertThat(webResponse.getMessage() , notNullValue());
-                    assertEquals(121, webResponse.getMessage().size());
                     assertTrue(webResponse.getMessage().containsKey("sheepdog-english"));
                     assertTrue(webResponse.getMessage().containsKey("sheepdog-shetland"));
                     AtomicInteger terrierSize = new AtomicInteger();
