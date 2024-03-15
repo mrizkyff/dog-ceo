@@ -80,11 +80,11 @@ public class BreedController {
                     Pagination available.
                     """
     )
-    public WebResponse<Page<BreedResponseDto>> getBreeds(Pageable pageable) {
+    public WebResponse<Page<BreedResponseDto>> getBreeds(@RequestParam("name") String name, Pageable pageable) {
         return WebResponse.<Page<BreedResponseDto>>builder()
                 .data(breedService.mapToPageDto(
                         breedService.getBreeds(
-                                null ,
+                                name ,
                                 pageable
                         )
                 ))
