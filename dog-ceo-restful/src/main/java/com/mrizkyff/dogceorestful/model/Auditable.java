@@ -1,5 +1,6 @@
 package com.mrizkyff.dogceorestful.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,14 +31,17 @@ public abstract class Auditable {
 
     @Id
     @GeneratedValue ( strategy = GenerationType.UUID )
+    @JsonFormat (shape = JsonFormat.Shape.STRING)
     private UUID id;
 
     @CreatedDate
     @Column ( name = "created_date" )
+    @JsonFormat (pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Jakarta")
     private Instant createdDate;
 
     @LastModifiedDate
     @Column ( name = "last_modified_date" )
+    @JsonFormat (pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Jakarta")
     private Instant lastModifiedDate;
 
 }
