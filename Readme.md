@@ -22,5 +22,7 @@
       - [x] Unit Test & Integration Test
       - [x] Redis Cached
       - [x] H2 Database
+    - Swagger
+      - http://localhost:8081/swagger-ui.html
 - Assets
   - [x] DDL in Dog RestFul API module
