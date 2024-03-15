@@ -1,6 +1,7 @@
 package com.mrizkyff.dogceorestful.dto.breed;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class BreedUpdateRequestDto implements Serializable {
     private String name;
 
     @NotEmpty ( message = "Sub breeds are required" )
+    @NotNull ( message = "Sub breeds are required" )
     private List<SubBreedDto> subBreeds;
 
     /**

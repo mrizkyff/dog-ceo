@@ -8,11 +8,13 @@ import com.mrizkyff.dogceorestful.exception.DataNotFoundException;
 import com.mrizkyff.dogceorestful.model.Breed;
 import com.mrizkyff.dogceorestful.model.SubBreed;
 import com.mrizkyff.dogceorestful.repository.BreedRepository;
+import com.mrizkyff.dogceorestful.repository.SubBreedRepository;
 import com.mrizkyff.dogceorestful.service.BreedService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -21,8 +23,11 @@ public class BreedServiceImpl implements BreedService {
 
     private final BreedRepository breedRepository;
 
-    public BreedServiceImpl(BreedRepository breedRepository) {
+    private final SubBreedRepository subBreedRepository;
+
+    public BreedServiceImpl(BreedRepository breedRepository , SubBreedRepository subBreedRepository) {
         this.breedRepository = breedRepository;
+        this.subBreedRepository = subBreedRepository;
     }
 
     @Override
@@ -48,22 +53,28 @@ public class BreedServiceImpl implements BreedService {
             }
             existingBreed.setName(breed.getName());
         }
-        breed.getSubBreeds().forEach(
-                subBreed -> {
-                    if (subBreed.getId() == null) {
-                        subBreed.setBreed(existingBreed);
-                        existingBreed.getSubBreeds().add(subBreed);
-                    } else {
-                        SubBreed existingSubBreed = existingBreed.getSubBreeds().stream()
-                                .filter(
-                                        subBreed1 -> subBreed1.getId().equals(subBreed.getId())
-                                ).findFirst().orElseThrow(() -> new DataNotFoundException("Sub breed with id " + subBreed.getId() + " not found"));
-                        existingSubBreed.setName(subBreed.getName());
-                        existingSubBreed.setImages(subBreed.getImages());
+        if (!breed.getSubBreeds().isEmpty()) {
 
+            breed.getSubBreeds().forEach(
+                    subBreed -> {
+                        if (subBreed.getId() == null) {
+                            subBreed.setBreed(existingBreed);
+                            existingBreed.getSubBreeds().add(subBreed);
+                        } else {
+                            SubBreed existingSubBreed = existingBreed.getSubBreeds().stream()
+                                    .filter(
+                                            subBreed1 -> subBreed1.getId().equals(subBreed.getId())
+                                    ).findFirst().orElseThrow(() -> new DataNotFoundException("Sub breed with id " + subBreed.getId() + " not found"));
+                            existingSubBreed.setName(subBreed.getName());
+                            existingSubBreed.setImages(subBreed.getImages());
+                        }
                     }
-                }
-        );
+            );
+        }
+        else {
+            subBreedRepository.deleteAll(existingBreed.getSubBreeds());
+            existingBreed.setSubBreeds(new ArrayList<>());
+        }
         breedRepository.save(existingBreed);
         return existingBreed;
     }
