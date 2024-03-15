@@ -18,7 +18,7 @@
         - http://localhost:8080/swagger-ui.html
   - ## Dog RestFul API
     - ### Objective done
-      - CRUD
-      - Unit Test & Integration Test
-      - Redis Cached
-      - H2 Database
+      - [x] CRUD
+      - [x] Unit Test & Integration Test
+      - [x] Redis Cached
+      - [x] H2 Database
