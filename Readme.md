@@ -22,3 +22,5 @@
       - [x] Unit Test & Integration Test
       - [x] Redis Cached
       - [x] H2 Database
+- Assets
+  - [x] DDL in Dog RestFul API module
